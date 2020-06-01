@@ -6,7 +6,7 @@ with open('README.md', 'r') as readme:
 
 setup(
     author='amancevice',
-    author_email='smallweirdnum@gmail.com',
+    author_email='1247555725@qq.com',
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
@@ -33,6 +33,6 @@ setup(
     packages=find_packages(exclude=['tests']),
     python_requires='>= 3.5',
     setup_requires=['setuptools_scm'],
-    url='https://github.com/amancevice/influxalchemy',
+    url='https://github.com/NagleZhang/influxalchemy',
     use_scm_version=True,
 )
