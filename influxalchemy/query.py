@@ -12,20 +12,25 @@ class InfluxDBQuery(object):
         expressions (tuple):          Query filters
         groupby     (str):            GROUP BY string
         limit       (int):            LIMIT int
+        agg         (str):            aggregation function, like count, sum...
     """
     def __init__(self, entities, client, expressions=None, groupby=None,
-                 limit=None):
+                 limit=None, agg=None):
         # pylint: disable=too-many-arguments
         self._entities = entities
         self._client = client
         self._expressions = expressions or ()
         self._groupby = groupby
         self._limit = limit
+        self._agg = agg
 
     def __str__(self):
         select = ", ".join(self._select)
         from_ = self._from
         where = " AND ".join(self._where)
+        agg = ""
+        if any(agg):
+            select = select
         if any(where):
             iql = "SELECT %s FROM %s WHERE %s" % (select, from_, where)
         else:
