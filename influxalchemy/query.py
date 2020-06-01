@@ -28,9 +28,10 @@ class InfluxDBQuery(object):
         select = ", ".join(self._select)
         from_ = self._from
         where = " AND ".join(self._where)
-        agg = ""
+        agg = self._agg
         if any(agg):
-            select = select
+            assert len(select) == 1
+            select = "%s(%s)" % (agg,select)
         if any(where):
             iql = "SELECT %s FROM %s WHERE %s" % (select, from_, where)
         else:
@@ -73,6 +74,12 @@ class InfluxDBQuery(object):
         return InfluxDBQuery(
             self._entities, self._client, self._expressions, self._groupby,
             limit)
+
+    def agg(self, agg):
+        """ Agg functions """
+        return InfluxDBQuery(
+            self._entities, self._client, self._expressions, self._groupby,
+            self.limit, agg)
 
     @property
     def measurement(self):
